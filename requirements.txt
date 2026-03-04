@@ -1,0 +1,7 @@
+# Add your dependencies here
+requests>=2.31.0
+langgraph>=0.2.0
+langchain-core>=0.3.0
+
+# LangSmith (optional - for tracing and monitoring)
+langsmith>=0.1.0

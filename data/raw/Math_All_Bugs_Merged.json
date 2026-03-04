@@ -1,0 +1,1603 @@
+{
+"metadata": {
+        "project": "Math",
+        "bug_id": "5",
+        "timestamp": "2026-03-03T06:51:35.722432",
+        "total_mutants": 40,
+        "mutants_processed": 40
+      },
+      "mutants": [
+        {
+          "mutant_id": "Math-5_18|228",
+          "mutator": "COR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> true || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> 1.0",
+          "whole_logs": [
+            "18:COR:||(boolean,boolean):TRUE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4057:Double.isNaN(real) || Double.isNaN(imaginary) |==> true",
+            "228:LVR:0:POS:org.apache.commons.math3.complex.Complex@reciprocal():304:10923:0.0 |==> 1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.07964601769911504,
+            "branch_coverage": 0.030120481927710843,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "7|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "2|1"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_7|20|226",
+          "mutator": "COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> real >= 0.0",
+          "whole_logs": [
+            "7:LVR:0:POS:org.apache.commons.math3.complex.Complex:67:2994:0.0 |==> 1.0",
+            "20:COR:||(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4129:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real)",
+            "226:ROR:==(double,double):>=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 |==> real >= 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.08928571428571429,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_23|230|227",
+          "mutator": "COR, ROR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN == (Double.isInfinite(real) || Double.isInfinite(imaginary)) || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> imaginary <= 0.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> false",
+          "whole_logs": [
+            "23:COR:&&(boolean,boolean):==(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4106:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN == (Double.isInfinite(real) || Double.isInfinite(imaginary))",
+            "230:ROR:==(double,double):<=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:imaginary == 0.0 |==> imaginary <= 0.0",
+            "227:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10900:real == 0.0 |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.11160714285714286,
+            "branch_coverage": 0.10240963855421686,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_7|20|235",
+          "mutator": "COR, COR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> real == 0.0",
+          "whole_logs": [
+            "7:LVR:0:POS:org.apache.commons.math3.complex.Complex:67:2994:0.0 |==> 1.0",
+            "20:COR:||(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4129:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real)",
+            "235:COR:&&(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 && imaginary == 0.0 |==> real == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.08433734939759036,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_24|230",
+          "mutator": "COR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> false || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> imaginary <= 0.0",
+          "whole_logs": [
+            "24:COR:&&(boolean,boolean):FALSE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4113:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> false",
+            "230:ROR:==(double,double):<=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:imaginary == 0.0 |==> imaginary <= 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.1,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_8|11|235",
+          "mutator": "COR, LVR, LVR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@:69:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> real == 0.0",
+          "whole_logs": [
+            "8:LVR:0:NEG:org.apache.commons.math3.complex.Complex:67:2994:0.0 |==> -1.0",
+            "11:LVR:0:POS:org.apache.commons.math3.complex.Complex:69:3110:0.0 |==> 1.0",
+            "235:COR:&&(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 && imaginary == 0.0 |==> real == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.10714285714285714,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_3|19",
+          "mutator": "COR, LVR",
+          "method_mutated": [
+            "<init>(double,double)"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:1.0 |==> 0.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) != Double.isInfinite(imaginary)",
+          "whole_logs": [
+            "3:LVR:POS:0:org.apache.commons.math3.complex.Complex:59:2516:1.0 |==> 0.0",
+            "19:COR:||(boolean,boolean):!=(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4129:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) != Double.isInfinite(imaginary)"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.08928571428571429,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_17|226|224",
+          "mutator": "COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> real >= 0.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> -1.0",
+          "whole_logs": [
+            "17:COR:||(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4060:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary)",
+            "226:ROR:==(double,double):>=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 |==> real >= 0.0",
+            "224:LVR:0:NEG:org.apache.commons.math3.complex.Complex@reciprocal():304:10903:0.0 |==> -1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.0783132530120482,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_10",
+          "mutator": "LVR",
+          "method_mutated": [],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:69:0.0 |==> -1.0",
+          "whole_logs": [
+            "10:LVR:0:NEG:org.apache.commons.math3.complex.Complex:69:3105:0.0 |==> -1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.10588235294117647,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_221",
+          "mutator": "COR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@reciprocal():1:isNaN |==> false",
+          "whole_logs": [
+            "221:COR:<IDENTIFIER(boolean)>:FALSE:org.apache.commons.math3.complex.Complex@reciprocal():300:10839:isNaN |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.08928571428571429,
+            "branch_coverage": 0.09523809523809523,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_22|288",
+          "mutator": "COR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "equals(java.lang.Object)"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true || org.apache.commons.math3.complex.Complex@equals(java.lang.Object):2:true |==> false",
+          "whole_logs": [
+            "22:COR:||(boolean,boolean):TRUE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4153:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true",
+            "288:LVR:TRUE:FALSE:org.apache.commons.math3.complex.Complex@equals(java.lang.Object):341:12244:true |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.08888888888888889,
+            "branch_coverage": 0.0783132530120482,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_9|228",
+          "mutator": "LVR, LVR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:69:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> 1.0",
+          "whole_logs": [
+            "9:LVR:0:POS:org.apache.commons.math3.complex.Complex:69:3105:0.0 |==> 1.0",
+            "228:LVR:0:POS:org.apache.commons.math3.complex.Complex@reciprocal():304:10923:0.0 |==> 1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.1,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_230",
+          "mutator": "ROR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> imaginary <= 0.0",
+          "whole_logs": [
+            "230:ROR:==(double,double):<=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:imaginary == 0.0 |==> imaginary <= 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.1,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_2|9|25|222",
+          "mutator": "COR, COR, LVR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@:69:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN || org.apache.commons.math3.complex.Complex@reciprocal():1:isNaN |==> true",
+          "whole_logs": [
+            "2:LVR:0:NEG:org.apache.commons.math3.complex.Complex:59:2511:0.0 |==> -1.0",
+            "9:LVR:0:POS:org.apache.commons.math3.complex.Complex:69:3105:0.0 |==> 1.0",
+            "25:COR:&&(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4106:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN",
+            "222:COR:<IDENTIFIER(boolean)>:TRUE:org.apache.commons.math3.complex.Complex@reciprocal():300:10839:isNaN |==> true"
+          ],
+          "coverage": {
+            "line_coverage": 0.08878504672897196,
+            "branch_coverage": 0.0875,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "2|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_10|229|233",
+          "mutator": "COR, LVR, LVR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:69:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> real == 0.0 == (imaginary == 0.0)",
+          "whole_logs": [
+            "10:LVR:0:NEG:org.apache.commons.math3.complex.Complex:69:3105:0.0 |==> -1.0",
+            "229:LVR:0:NEG:org.apache.commons.math3.complex.Complex@reciprocal():304:10923:0.0 |==> -1.0",
+            "233:COR:&&(boolean,boolean):==(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 && imaginary == 0.0 |==> real == 0.0 == (imaginary == 0.0)"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.1,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_15|26|232|236",
+          "mutator": "COR, COR, COR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@<init>(double,double):104:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary)) || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> false || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0",
+          "whole_logs": [
+            "15:COR:||(boolean,boolean):!=(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4038:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary)",
+            "26:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4128:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary))",
+            "232:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10920:imaginary == 0.0 |==> false",
+            "236:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11555555555555555,
+            "branch_coverage": 0.0963855421686747,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_6|221",
+          "mutator": "COR, LVR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:1.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@reciprocal():1:isNaN |==> false",
+          "whole_logs": [
+            "6:LVR:POS:NEG:org.apache.commons.math3.complex.Complex:67:2989:1.0 |==> -1.0",
+            "221:COR:<IDENTIFIER(boolean)>:FALSE:org.apache.commons.math3.complex.Complex@reciprocal():300:10839:isNaN |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.08928571428571429,
+            "branch_coverage": 0.09523809523809523,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_224",
+          "mutator": "LVR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> -1.0",
+          "whole_logs": [
+            "224:LVR:0:NEG:org.apache.commons.math3.complex.Complex@reciprocal():304:10903:0.0 |==> -1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.10588235294117647,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_5|22|223|288",
+          "mutator": "COR, LVR, LVR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()",
+            "equals(java.lang.Object)"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:1.0 |==> 0.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@equals(java.lang.Object):2:true |==> false",
+          "whole_logs": [
+            "5:LVR:POS:0:org.apache.commons.math3.complex.Complex:67:2989:1.0 |==> 0.0",
+            "22:COR:||(boolean,boolean):TRUE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4153:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true",
+            "223:LVR:0:POS:org.apache.commons.math3.complex.Complex@reciprocal():304:10903:0.0 |==> 1.0",
+            "288:LVR:TRUE:FALSE:org.apache.commons.math3.complex.Complex@equals(java.lang.Object):341:12244:true |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.09333333333333334,
+            "branch_coverage": 0.0783132530120482,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "10|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_12|231|235",
+          "mutator": "COR, LVR, ROR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:69:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> imaginary >= 0.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> real == 0.0",
+          "whole_logs": [
+            "12:LVR:0:NEG:org.apache.commons.math3.complex.Complex:69:3110:0.0 |==> -1.0",
+            "231:ROR:==(double,double):>=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:imaginary == 0.0 |==> imaginary >= 0.0",
+            "235:COR:&&(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 && imaginary == 0.0 |==> real == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.10588235294117647,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_23|288",
+          "mutator": "COR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "equals(java.lang.Object)"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN == (Double.isInfinite(real) || Double.isInfinite(imaginary)) || org.apache.commons.math3.complex.Complex@equals(java.lang.Object):2:true |==> false",
+          "whole_logs": [
+            "23:COR:&&(boolean,boolean):==(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4106:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN == (Double.isInfinite(real) || Double.isInfinite(imaginary))",
+            "288:LVR:TRUE:FALSE:org.apache.commons.math3.complex.Complex@equals(java.lang.Object):341:12244:true |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.1,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_5|16|22|223",
+          "mutator": "COR, COR, LVR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:1.0 |==> 0.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> 1.0",
+          "whole_logs": [
+            "5:LVR:POS:0:org.apache.commons.math3.complex.Complex:67:2989:1.0 |==> 0.0",
+            "16:COR:||(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4038:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real)",
+            "22:COR:||(boolean,boolean):TRUE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4153:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true",
+            "223:LVR:0:POS:org.apache.commons.math3.complex.Complex@reciprocal():304:10903:0.0 |==> 1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09333333333333334,
+            "branch_coverage": 0.05555555555555555,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "10|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_8|18|21|227",
+          "mutator": "COR, COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> true || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(imaginary) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> false",
+          "whole_logs": [
+            "8:LVR:0:NEG:org.apache.commons.math3.complex.Complex:67:2994:0.0 |==> -1.0",
+            "18:COR:||(boolean,boolean):TRUE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4057:Double.isNaN(real) || Double.isNaN(imaginary) |==> true",
+            "21:COR:||(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4156:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(imaginary)",
+            "227:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10900:real == 0.0 |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.08035714285714286,
+            "branch_coverage": 0.03125,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "7|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "2|1"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_3|15|26|232",
+          "mutator": "COR, COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:1.0 |==> 0.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@<init>(double,double):104:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary)) || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> false",
+          "whole_logs": [
+            "3:LVR:POS:0:org.apache.commons.math3.complex.Complex:59:2516:1.0 |==> 0.0",
+            "15:COR:||(boolean,boolean):!=(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4038:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary)",
+            "26:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4128:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary))",
+            "232:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10920:imaginary == 0.0 |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.11555555555555555,
+            "branch_coverage": 0.0963855421686747,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_17|26|228|225",
+          "mutator": "COR, COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@<init>(double,double):104:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary)) || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> real <= 0.0",
+          "whole_logs": [
+            "17:COR:||(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4060:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary)",
+            "26:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4128:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary))",
+            "228:LVR:0:POS:org.apache.commons.math3.complex.Complex@reciprocal():304:10923:0.0 |==> 1.0",
+            "225:ROR:==(double,double):<=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 |==> real <= 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.08433734939759036,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_8|236",
+          "mutator": "COR, LVR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0",
+          "whole_logs": [
+            "8:LVR:0:NEG:org.apache.commons.math3.complex.Complex:67:2994:0.0 |==> -1.0",
+            "236:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.09523809523809523,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_10|17|228",
+          "mutator": "COR, LVR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:69:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> 1.0",
+          "whole_logs": [
+            "10:LVR:0:NEG:org.apache.commons.math3.complex.Complex:69:3105:0.0 |==> -1.0",
+            "17:COR:||(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4060:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary)",
+            "228:LVR:0:POS:org.apache.commons.math3.complex.Complex@reciprocal():304:10923:0.0 |==> 1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.08433734939759036,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_5|22|288",
+          "mutator": "COR, LVR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "equals(java.lang.Object)"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:1.0 |==> 0.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true || org.apache.commons.math3.complex.Complex@equals(java.lang.Object):2:true |==> false",
+          "whole_logs": [
+            "5:LVR:POS:0:org.apache.commons.math3.complex.Complex:67:2989:1.0 |==> 0.0",
+            "22:COR:||(boolean,boolean):TRUE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4153:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> true",
+            "288:LVR:TRUE:FALSE:org.apache.commons.math3.complex.Complex@equals(java.lang.Object):341:12244:true |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.08888888888888889,
+            "branch_coverage": 0.0783132530120482,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_16|25|232",
+          "mutator": "COR, COR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) || org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> false",
+          "whole_logs": [
+            "16:COR:||(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4038:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real)",
+            "25:COR:&&(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4106:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN",
+            "232:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10920:imaginary == 0.0 |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.11555555555555555,
+            "branch_coverage": 0.08536585365853659,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_7|12|20|235",
+          "mutator": "COR, COR, LVR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@:69:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> real == 0.0",
+          "whole_logs": [
+            "7:LVR:0:POS:org.apache.commons.math3.complex.Complex:67:2994:0.0 |==> 1.0",
+            "12:LVR:0:NEG:org.apache.commons.math3.complex.Complex:69:3110:0.0 |==> -1.0",
+            "20:COR:||(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4129:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real)",
+            "235:COR:&&(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 && imaginary == 0.0 |==> real == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.0963855421686747,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_4|234",
+          "mutator": "COR, LVR",
+          "method_mutated": [
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:1.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> false",
+          "whole_logs": [
+            "4:LVR:POS:NEG:org.apache.commons.math3.complex.Complex:59:2516:1.0 |==> -1.0",
+            "234:COR:&&(boolean,boolean):FALSE(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10907:real == 0.0 && imaginary == 0.0 |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.11160714285714286,
+            "branch_coverage": 0.10240963855421686,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_1|11|24|230",
+          "mutator": "COR, LVR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@:69:0.0 |==> 1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> false || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> imaginary <= 0.0",
+          "whole_logs": [
+            "1:LVR:0:POS:org.apache.commons.math3.complex.Complex:59:2511:0.0 |==> 1.0",
+            "11:LVR:0:POS:org.apache.commons.math3.complex.Complex:69:3110:0.0 |==> 1.0",
+            "24:COR:&&(boolean,boolean):FALSE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4113:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> false",
+            "230:ROR:==(double,double):<=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:imaginary == 0.0 |==> imaginary <= 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.10588235294117647,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|25% (1/4)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_18|21|227",
+          "mutator": "COR, COR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> true || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(imaginary) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> false",
+          "whole_logs": [
+            "18:COR:||(boolean,boolean):TRUE(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4057:Double.isNaN(real) || Double.isNaN(imaginary) |==> true",
+            "21:COR:||(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4156:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(imaginary)",
+            "227:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10900:real == 0.0 |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.08035714285714286,
+            "branch_coverage": 0.03125,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "7|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "2|1"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_2|25|231",
+          "mutator": "COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> imaginary >= 0.0",
+          "whole_logs": [
+            "2:LVR:0:NEG:org.apache.commons.math3.complex.Complex:59:2511:0.0 |==> -1.0",
+            "25:COR:&&(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4106:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN",
+            "231:ROR:==(double,double):>=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:imaginary == 0.0 |==> imaginary >= 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.1,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_17|20|226|224",
+          "mutator": "COR, COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> real >= 0.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> -1.0",
+          "whole_logs": [
+            "17:COR:||(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4060:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(imaginary)",
+            "20:COR:||(boolean,boolean):LHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4129:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real)",
+            "226:ROR:==(double,double):>=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 |==> real >= 0.0",
+            "224:LVR:0:NEG:org.apache.commons.math3.complex.Complex@reciprocal():304:10903:0.0 |==> -1.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.06707317073170732,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_10|23|229|233",
+          "mutator": "COR, COR, LVR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:69:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):103:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN == (Double.isInfinite(real) || Double.isInfinite(imaginary)) || org.apache.commons.math3.complex.Complex@reciprocal():5:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> real == 0.0 == (imaginary == 0.0)",
+          "whole_logs": [
+            "10:LVR:0:NEG:org.apache.commons.math3.complex.Complex:69:3105:0.0 |==> -1.0",
+            "23:COR:&&(boolean,boolean):==(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):103:4106:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> !isNaN == (Double.isInfinite(real) || Double.isInfinite(imaginary))",
+            "229:LVR:0:NEG:org.apache.commons.math3.complex.Complex@reciprocal():304:10923:0.0 |==> -1.0",
+            "233:COR:&&(boolean,boolean):==(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 && imaginary == 0.0 |==> real == 0.0 == (imaginary == 0.0)"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.1,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_15|232|236",
+          "mutator": "COR, COR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> false || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0",
+          "whole_logs": [
+            "15:COR:||(boolean,boolean):!=(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4038:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary)",
+            "232:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10920:imaginary == 0.0 |==> false",
+            "236:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.11555555555555555,
+            "branch_coverage": 0.0963855421686747,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_3|26|233|232",
+          "mutator": "COR, COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:1.0 |==> 0.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary)) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> real == 0.0 == (imaginary == 0.0) || org.apache.commons.math3.complex.Complex@reciprocal():5:imaginary == 0.0 |==> false",
+          "whole_logs": [
+            "3:LVR:POS:0:org.apache.commons.math3.complex.Complex:59:2516:1.0 |==> 0.0",
+            "26:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4128:!isNaN && (Double.isInfinite(real) || Double.isInfinite(imaginary)) |==> (Double.isInfinite(real) || Double.isInfinite(imaginary))",
+            "233:COR:&&(boolean,boolean):==(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 && imaginary == 0.0 |==> real == 0.0 == (imaginary == 0.0)",
+            "232:ROR:==(double,double):FALSE(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10920:imaginary == 0.0 |==> false"
+          ],
+          "coverage": {
+            "line_coverage": 0.11504424778761062,
+            "branch_coverage": 0.11176470588235295,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.createComplex(DD)Lorg/apache/commons/math3/complex/Complex;": [
+              "997|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "9|1|50% (1/2)",
+              "13|1|50% (1/2)",
+              "18|1",
+              "19|1",
+              "20|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_4|19|225",
+          "mutator": "COR, LVR, ROR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:59:1.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) != Double.isInfinite(imaginary) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 |==> real <= 0.0",
+          "whole_logs": [
+            "4:LVR:POS:NEG:org.apache.commons.math3.complex.Complex:59:2516:1.0 |==> -1.0",
+            "19:COR:||(boolean,boolean):!=(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4129:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(real) != Double.isInfinite(imaginary)",
+            "225:ROR:==(double,double):<=(double,double):org.apache.commons.math3.complex.Complex@reciprocal():304:10895:real == 0.0 |==> real <= 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.08928571428571429,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (2/4)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        },
+        {
+          "mutant_id": "Math-5_8|15|21|236",
+          "mutator": "COR, COR, COR, LVR",
+          "method_mutated": [
+            "<init>(double,double)",
+            "reciprocal()"
+          ],
+          "target_file": "src/main/java/org/apache/commons/math3/complex/Complex.java",
+          "test_ran": "org.apache.commons.math3.complex.ComplexTest::testReciprocalZero",
+          "mutation": "org.apache.commons.math3.complex.Complex@:67:0.0 |==> -1.0 || org.apache.commons.math3.complex.Complex@<init>(double,double):102:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary) || org.apache.commons.math3.complex.Complex@<init>(double,double):104:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(imaginary) || org.apache.commons.math3.complex.Complex@reciprocal():5:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0",
+          "whole_logs": [
+            "8:LVR:0:NEG:org.apache.commons.math3.complex.Complex:67:2994:0.0 |==> -1.0",
+            "15:COR:||(boolean,boolean):!=(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):102:4038:Double.isNaN(real) || Double.isNaN(imaginary) |==> Double.isNaN(real) != Double.isNaN(imaginary)",
+            "21:COR:||(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@<init>(double,double):104:4156:Double.isInfinite(real) || Double.isInfinite(imaginary) |==> Double.isInfinite(imaginary)",
+            "236:COR:&&(boolean,boolean):RHS(boolean,boolean):org.apache.commons.math3.complex.Complex@reciprocal():304:10910:real == 0.0 && imaginary == 0.0 |==> imaginary == 0.0"
+          ],
+          "coverage": {
+            "line_coverage": 0.09292035398230089,
+            "branch_coverage": 0.07317073170731707,
+            "coverage_success": true
+          },
+          "method_coverage": {
+            "org.apache.commons.math3.complex.Complex.equals(Ljava/lang/Object;)Z": [
+              "1|1|50% (1/2)",
+              "4|1|50% (1/2)",
+              "5|1",
+              "6|1|50% (1/2)",
+              "9|1|25% (1/4)"
+            ],
+            "org.apache.commons.math3.complex.Complex.reciprocal()Lorg/apache/commons/math3/complex/Complex;": [
+              "1|1|50% (1/2)",
+              "5|1|50% (1/2)",
+              "6|1"
+            ],
+            "org.apache.commons.math3.complex.Complex.toString()Ljava/lang/String;": [
+              "1|2"
+            ]
+          }
+        }
+      ]
+}
