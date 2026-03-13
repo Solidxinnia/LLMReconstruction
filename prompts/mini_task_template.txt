@@ -1,0 +1,15 @@
+ACT AS: Senior Java Software Engineer.
+TASK: Execution Path Analysis for "{test_name}".
+
+STRICT RULES:
+1. TRACE: Map test arguments to production variables (e.g., if ZERO is passed, real=0.0).
+2. FORMAT: For "method_coverage", use "lineNumber|hitCount|percentage% (covered/total)" for conditional lines and "lineNumber|hitCount" for standard lines.
+3. OUTPUT: Return a single JSON object with keys "reasoning", "method_coverage", "done" (boolean).
+4. NO MARKDOWN. No code fences.
+
+CONTEXT:
+Test method body:
+{test_method_body}
+
+Production methods (filtered):
+{production_method_bodies}

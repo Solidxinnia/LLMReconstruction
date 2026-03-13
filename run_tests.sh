@@ -1,5 +1,0 @@
-python3 main_apache_math3.py 'data/raw/callgraph2.csv' 'data/raw/test2' 'org.apache.commons.math3.distribution.HypergeometricDistributionTest::testMath1021'
-python3 main_apache_math3.py 'data/raw/callgraph3.csv' 'data/raw/test3' 'org.apache.commons.math3.util.MathArraysTest::testLinearCombinationWithSingleElementArray'
-python3 main_apache_math3.py 'data/raw/callgraph11.csv' 'data/raw/test11' 'org.apache.commons.math3.distribution.MultivariateNormalDistributionTest::testUnivariateDistribution'
-python3 main_apache_math3.py 'data/raw/callgraph5.csv' 'data/raw/test5' 'org.apache.commons.math3.complex.ComplexTest::testReciprocalZero'
-python3 main_apache_math3.py 'data/raw/callgraph10.csv' 'data/raw/test10' 'org.apache.commons.math3.analysis.differentiation.DerivativeStructureTest::testAtan2SpecialCases'

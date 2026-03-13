@@ -5,14 +5,14 @@
 The script now requires **3 command-line arguments**:
 
 ```bash
-python3 main_apache_math3.py <callgraph_csv> <tests_root> <test_name>
+python3 main_apache_math3.py <callgraph_json> <tests_root> <test_name>
 ```
 
 ### Arguments
 
-1. **`callgraph_csv`** - Path to the callgraph CSV file
-   - Example: `data/raw/callgraph2.csv`
-   - Contains method bodies and call relationships
+1. **`callgraph_json`** - Path to the callgraph JSON file
+  - Example: `data/raw/callgraph.json`
+  - Contains method bodies with fields `method` and `body`
 
 2. **`tests_root`** - Path to the test directory root
    - Example: `data/raw/test2`
@@ -28,19 +28,19 @@ python3 main_apache_math3.py <callgraph_csv> <tests_root> <test_name>
 ```bash
 # Using :: separator
 python3 main_apache_math3.py \
-  'data/raw/callgraph2.csv' \
+  'data/raw/callgraph.json' \
   'data/raw/test2' \
   'org.apache.commons.math3.util.MathArraysTest::testLinearCombinationWithSingleElementArray'
 
 # Using . separator (also works)
 python3 main_apache_math3.py \
-  'data/raw/callgraph2.csv' \
+  'data/raw/callgraph.json' \
   'data/raw/test2' \
   'org.apache.commons.math3.util.MathArraysTest.testLinearCombinationWithSingleElementArray'
 
 # Another example with Complex class
 python3 main_apache_math3.py \
-  'data/raw/callgraph.csv' \
+  'data/raw/callgraph.json' \
   'data/raw/test' \
   'org.apache.commons.math3.complex.ComplexTest.testReciprocalZero'
 ```
@@ -48,9 +48,9 @@ python3 main_apache_math3.py \
 ## Output
 
 The script automatically determines the output directory based on the callgraph filename:
-- `callgraph.csv` → `data/outputs/reconstructions/`
-- `callgraph2.csv` → `data/outputs/reconstructions2/`
-- `callgraph3.csv` → `data/outputs/reconstructions3/`
+- `callgraph.json` → `data/outputs/reconstructions/`
+- `callgraph2.json` → `data/outputs/reconstructions2/`
+- `callgraph3.json` → `data/outputs/reconstructions3/`
 
 Reports are saved as: `langgraph_analysis_YYYYMMDD_HHMMSS.txt`
 
@@ -58,13 +58,13 @@ Reports are saved as: `langgraph_analysis_YYYYMMDD_HHMMSS.txt`
 
 ### Missing arguments
 ```
-Usage: python3 main_apache_math3.py <callgraph_csv> <tests_root> <test_name>
+Usage: python3 main_apache_math3.py <callgraph_json> <tests_root> <test_name>
 
 Example:
-  python3 main_apache_math3.py 'data/raw/callgraph2.csv' 'data/raw/test2' 'org.apache.commons.math3.util.MathArraysTest::testLinearCombinationWithSingleElementArray'
+  python3 main_apache_math3.py 'data/raw/callgraph.json' 'data/raw/test2' 'org.apache.commons.math3.util.MathArraysTest::testLinearCombinationWithSingleElementArray'
 
 Arguments:
-  callgraph_csv : Path to the callgraph CSV file
+  callgraph_json: Path to the callgraph JSON file
   tests_root    : Path to the test directory
   test_name     : Fully qualified test name (use :: or . as separator)
 ```
@@ -72,7 +72,7 @@ Arguments:
 ### File not found
 If the callgraph or test directory doesn't exist, you'll see:
 ```
-✗ Error loading callgraph: [Errno 2] No such file or directory: 'data/raw/callgraph.csv'
+✗ Error loading callgraph: [Errno 2] No such file or directory: 'data/raw/callgraph.json'
 ✗ Test directory not found: data/raw/test
 ```
 
@@ -81,7 +81,7 @@ If the callgraph or test directory doesn't exist, you'll see:
 The script configuration when started:
 ```
 Configuration:
-  Callgraph: data/raw/callgraph2.csv
+  Callgraph: data/raw/callgraph.json
   Tests root: data/raw/test2
   Test name: org.apache.commons.math3.util.MathArraysTest.testLinearCombinationWithSingleElementArray
   Output dir: data/outputs/reconstructions2
@@ -108,7 +108,7 @@ To analyze multiple tests, you can create a simple shell script:
 #!/bin/bash
 # analyze_tests.sh
 
-CALLGRAPH="data/raw/callgraph2.csv"
+CALLGRAPH="data/raw/callgraph.json"
 TESTROOT="data/raw/test2"
 
 python3 main_apache_math3.py "$CALLGRAPH" "$TESTROOT" \
@@ -131,7 +131,7 @@ chmod +x analyze_tests.sh
 
 Before running, ensure:
 1. ✅ MLX server is running on `http://localhost:8080`
-2. ✅ Callgraph CSV file exists
+2. ✅ Callgraph JSON file exists
 3. ✅ Test directory exists with Java test files
 4. ✅ Python dependencies installed: `langgraph`, `requests`
 
@@ -140,7 +140,7 @@ Before running, ensure:
 In the old version, the paths were hardcoded:
 ```python
 # OLD - Don't use this anymore
-callgraph_csv = "data/raw/callgraph3.csv"
+callgraph_json = "data/raw/callgraph3.json"
 tests_root = "data/raw/test3"
 # Test name was hardcoded in the prompt
 ```

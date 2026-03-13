@@ -10,7 +10,7 @@ import json
 import re
 import time
 import os
-from typing import List, Dict, Any, TypedDict
+from typing import List, Dict, Any, TypedDict, Optional, Tuple
 from pathlib import Path
 from datetime import datetime
 import requests
@@ -54,11 +54,14 @@ class AnalysisState(TypedDict):
     """State object passed through the graph"""
 
     # Configuration
-    callgraph_csv: str
+    callgraph_json: str
     tests_root: str
     output_dir: str
     max_iterations: int
     test_name: str  # The specific test to analyze
+    mutation_id: Optional[str]
+    mutation_ids_path: str
+    mutation_coverage_path: str
 
     # Data loaded from disk
     callgraph: Dict[str, Any]
@@ -90,18 +93,21 @@ class AnalysisState(TypedDict):
 # ============================================================
 
 class MLXClient:
-    """Simple MLX server client"""
+    """Simple OpenAI-compatible server client (vLLM, MLX, etc.)"""
 
-    def __init__(self, base_url: str = "http://localhost:8080/v1",
-                 model: str = "mlx-community/gemma-3-12b-it-4bit",
-                 max_tokens: int = 16384,  # Reduced to prevent memory overflow
-                 temperature: float = 0.1,
-                 timeout: float = 720.0):
-        self.base_url = base_url
-        self.model = model
-        self.max_tokens = max_tokens
-        self.temperature = temperature
-        self.timeout = timeout
+    def __init__(
+        self,
+        base_url: str = None,
+        model: str = None,
+        max_tokens: int = None,
+        temperature: float = None,
+        timeout: float = None,
+    ):
+        self.base_url = base_url or os.environ.get("LLM_BASE_URL", "http://localhost:8000/v1")
+        self.model = model or os.environ.get("LLM_MODEL", "google/gemma-3-12b-it")
+        self.max_tokens = int(max_tokens or os.environ.get("LLM_MAX_TOKENS", 8192))
+        self.temperature = float(temperature or os.environ.get("LLM_TEMPERATURE", 0.1))
+        self.timeout = float(timeout or os.environ.get("LLM_TIMEOUT", 720.0))
 
     def test_connection(self) -> bool:
         """Test if MLX server is reachable"""
@@ -141,40 +147,93 @@ class MLXClient:
 # TOOL FUNCTIONS
 # ============================================================
 
-def load_callgraph(csv_path: str) -> Dict[str, Any]:
-    """Load callgraph from CSV"""
-    import csv
-
-    relationships = []
-    method_bodies = {}
+def load_callgraph(json_path: str) -> Dict[str, Any]:
+    """Load callgraph from JSON with fields: method, body"""
+    method_bodies: Dict[str, str] = {}
+    mutation_index: Dict[str, Dict[str, Dict[str, Any]]] = {}
+    mutation_ids: List[str] = []
 
     try:
-        with open(csv_path, 'r', encoding='utf-8') as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                caller = row.get('caller', '')
-                callee = row.get('callee', '')
-                caller_body = row.get('caller_body', '')
-                callee_body = row.get('callee_body', '')
+        with open(json_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
 
-                relationships.append({
-                    'caller': caller,
-                    'callee': callee
-                })
+        # Support either a list of objects or a dict with a top-level list
+        if isinstance(data, dict):
+            entries = data.get('methods', data.get('data', data.get('items')))
+            if entries is None:
+                # Fallback: use the first list value in the dict (e.g., {"Math-5b": [...]})
+                entries = next((value for value in data.values() if isinstance(value, list)), [])
+        else:
+            entries = data
 
-                if caller and caller_body and caller_body != 'BODY_NOT_FOUND':
-                    method_bodies[caller] = caller_body
-                if callee and callee_body and callee_body != 'BODY_NOT_FOUND':
-                    method_bodies[callee] = callee_body
+        if not isinstance(entries, list):
+            raise ValueError("Callgraph JSON must be a list of {method, body} entries")
 
-        print(f"✓ Loaded callgraph: {len(relationships)} relationships, {len(method_bodies)} method bodies")
+        for entry in entries:
+            if not isinstance(entry, dict):
+                continue
+            method_name = entry.get('method', '').strip()
+            body = entry.get('body', '')
+            if method_name and body and body != 'BODY_NOT_FOUND':
+                method_bodies[method_name] = body
+
+            mutations = entry.get('mutation', []) or []
+            for mutation_entry in mutations:
+                parsed = _parse_mutation_entry(mutation_entry)
+                if not parsed:
+                    continue
+                mutation_id, line_no, original, mutated = parsed
+                mutation_index.setdefault(method_name, {})[mutation_id] = {
+                    "line": line_no,
+                    "original": original,
+                    "mutated": mutated,
+                }
+                mutation_ids.append(mutation_id)
+
+        print(f"✓ Loaded callgraph JSON: {len(method_bodies)} method bodies")
         return {
-            'relationships': relationships,
-            'method_bodies': method_bodies
+            'method_bodies': method_bodies,
+            'mutations': mutation_index,
+            'mutation_ids': sorted(set(mutation_ids))
         }
     except Exception as e:
-        print(f"✗ Error loading callgraph: {e}")
-        return {'relationships': [], 'method_bodies': {}}
+        print(f"✗ Error loading callgraph JSON: {e}")
+    return {'method_bodies': {}, 'mutations': {}, 'mutation_ids': []}
+
+
+def _parse_mutation_entry(entry: str) -> Optional[Tuple[str, int, str, str]]:
+    """Parse a mutation entry string into (mutation_id, line, original, mutated)."""
+    if not isinstance(entry, str) or ":" not in entry:
+        return None
+
+    # Example: Math-5_2|25|231:5:imaginary == 0.0 |==> imaginary >= 0.0
+    match = re.match(r"^(?P<mid>[^:]+):(?P<line>\d+):(?P<orig>.*?)(?:\s*\|?==>\s*)(?P<mut>.*)$", entry)
+    if not match:
+        return None
+
+    mutation_id_raw = match.group("mid").strip()
+    mutation_id = mutation_id_raw.replace("|", "_")
+    line_no = int(match.group("line"))
+    original = match.group("orig").strip()
+    mutated = match.group("mut").strip()
+    return mutation_id, line_no, original, mutated
+
+
+def _apply_mutation(body: str, line_no: int, original: str, mutated: str) -> str:
+    """Apply a single-line mutation to the method body (0-based line index)."""
+    if not body:
+        return body
+
+    lines = body.splitlines()
+    if line_no < 0 or line_no >= len(lines):
+        return body
+
+    if original and original in lines[line_no]:
+        lines[line_no] = lines[line_no].replace(original, mutated, 1)
+    else:
+        lines[line_no] = f"{lines[line_no]}  // MUTATION: {mutated}"
+
+    return "\n".join(lines)
 
 
 def discover_tests(tests_root: str) -> List[Dict[str, str]]:
@@ -202,25 +261,14 @@ def discover_tests(tests_root: str) -> List[Dict[str, str]]:
     return tests
 
 
-def get_callgraph_summary(callgraph: Dict[str, Any]) -> str:
-    """Get summary of callgraph relationships"""
-    relationships = callgraph['relationships']
-    if not relationships:
-        return "No callgraph relationships found"
-
-    lines = ["Production Code Callgraph:"]
-    for rel in relationships[:10]:
-        lines.append(f"  {rel['caller']} → {rel['callee']}")
-
-    if len(relationships) > 10:
-        lines.append(f"  ...and {len(relationships) - 10} more relationships")
-
-    return "\n".join(lines)
-
-
-def get_production_method_body(callgraph: Dict[str, Any], method_name: str) -> str:
+def get_production_method_body(
+    callgraph: Dict[str, Any],
+    method_name: str,
+    mutation_id: Optional[str] = None,
+) -> str:
     """Get method body from callgraph"""
     method_bodies = callgraph['method_bodies']
+    mutation_index = callgraph.get('mutations', {})
 
     # GUARDRAIL: Reject ambiguous method names (require fully-qualified signatures)
     if method_name and ':' in method_name:
@@ -246,7 +294,12 @@ def get_production_method_body(callgraph: Dict[str, Any], method_name: str) -> s
 
     # Try exact match first
     if method_name in method_bodies:
-        numbered_body = _with_line_numbers(method_bodies[method_name])
+        body = method_bodies[method_name]
+        if mutation_id:
+            mutation = mutation_index.get(method_name, {}).get(mutation_id)
+            if mutation:
+                body = _apply_mutation(body, mutation["line"], mutation["original"], mutation["mutated"])
+        numbered_body = _with_line_numbers(body)
         return f"Method: {method_name}\n{numbered_body}\n"
 
     # Try partial match
@@ -254,6 +307,10 @@ def get_production_method_body(callgraph: Dict[str, Any], method_name: str) -> s
     method_lower = method_name.lower()
     for sig, body in method_bodies.items():
         if method_lower in sig.lower():
+            if mutation_id:
+                mutation = mutation_index.get(sig, {}).get(mutation_id)
+                if mutation:
+                    body = _apply_mutation(body, mutation["line"], mutation["original"], mutation["mutated"])
             matches.append(f"Method: {sig}\n{_with_line_numbers(body)}\n")
 
     if matches:
@@ -314,8 +371,8 @@ def _extract_method_body(source_code: str, method_name: str) -> str:
 def _with_line_numbers(code: str) -> str:
     """Prefix code with 1-based line numbers for reliable coverage mapping.
     
-    CRITICAL: Strip leading/trailing blank lines from callgraph CSV to prevent line drift.
-    The callgraph CSV method bodies often have extra whitespace that causes misalignment
+    CRITICAL: Strip leading/trailing blank lines from callgraph JSON to prevent line drift.
+    The callgraph JSON method bodies often have extra whitespace that causes misalignment
     with ground truth line numbers.
     """
     if not code:
@@ -341,8 +398,8 @@ def _with_line_numbers(code: str) -> str:
     # Extract non-blank range
     lines = lines[start_idx:end_idx + 1]
     
-    width = max(2, len(str(len(lines))))
-    return "\n".join(f"{i:>{width}}: {line}" for i, line in enumerate(lines, start=1))
+    width = max(2, len(str(max(0, len(lines) - 1))))
+    return "\n".join(f"{i:>{width}}: {line}" for i, line in enumerate(lines, start=0))
 
 
 def get_test_method_body(tests: List[Dict[str, str]], method_name: str) -> str:
@@ -430,11 +487,9 @@ def get_all_tests(tests: List[Dict[str, str]]) -> str:
 
 def execute_tool(state: AnalysisState, tool_type: str, args: Dict[str, Any]) -> str:
     """Execute a tool request"""
-    if tool_type == "get_callgraph":
-        return get_callgraph_summary(state['callgraph'])
     if tool_type == "get_production_method_body":
         method_name = args.get("method_name", "")
-        return get_production_method_body(state['callgraph'], method_name)
+        return get_production_method_body(state['callgraph'], method_name, state.get('mutation_id'))
     if tool_type == "get_test_method_body":
         method_name = args.get("method_name", args.get("filename", ""))
         return get_test_method_body(state['tests'], method_name)
@@ -465,7 +520,7 @@ def initialize_node(state: AnalysisState) -> AnalysisState:
     print("\n" + "="*60)
     print("Apache Math3 Execution Path Analysis (LangGraph)")
     print("="*60)
-    print(f"Callgraph: {state['callgraph_csv']}")
+    print(f"Callgraph: {state['callgraph_json']}")
     print(f"Tests: {state['tests_root']}")
     print(f"Max iterations: {state['max_iterations']}")
     print("="*60 + "\n")
@@ -481,8 +536,14 @@ def initialize_node(state: AnalysisState) -> AnalysisState:
     print("✓ MLX server connected\n")
 
     # Load data
-    state['callgraph'] = load_callgraph(state['callgraph_csv'])
+    state['callgraph'] = load_callgraph(state['callgraph_json'])
     state['tests'] = discover_tests(state['tests_root'])
+
+    # Write mutation id list if available
+    mutation_ids_path = state.get('mutation_ids_path')
+    mutation_ids = state['callgraph'].get('mutation_ids', [])
+    if mutation_ids_path and mutation_ids:
+        Path(mutation_ids_path).write_text("\n".join(mutation_ids) + "\n", encoding='utf-8')
 
     # Initialize state
     state['iteration'] = 0
@@ -577,7 +638,6 @@ ROLE: Senior Java Software Engineering Agent
 OBJECTIVE: Determine the execution path for test: '""" + test_name + """'. Identify every method call triggered by the test by requesting tools. For each method, determine which lines execute based on the specific argument values used in this test. Focus on line-level coverage, not just method names. Only include lines that actually execute with these argument values.
 
 AVAILABLE TOOLS:
-- get_callgraph(): Summarizes caller -> callee relationships
 - get_production_method_body(method_name): Get production method definition (use FULLY-QUALIFIED names)
 - get_test_method_body(method_name): Get test method definition (use FULLY-QUALIFIED name: 'org.apache.commons.math3.package.ClassName.methodName')
 - get_all_tests(): List all test methods
@@ -916,6 +976,8 @@ def generate_report_node(state: AnalysisState) -> AnalysisState:
     report = f"""Apache Math3 Execution Path Analysis Report (LangGraph)
 Generated: {datetime.now().isoformat()}
 
+Mutation ID: {state.get('mutation_id', 'None')}
+
 {'='*60}
 FINAL UNDERSTANDING
 {'='*60}
@@ -961,6 +1023,19 @@ Methods/Lines to Execute:
     report_path.write_text(report, encoding='utf-8')
 
     state['report_path'] = str(report_path)
+
+    # Append mutation coverage summary
+    mutation_coverage_path = state.get('mutation_coverage_path')
+    if mutation_coverage_path and state.get('mutation_id') and state.get('method_coverage'):
+        coverage_entry = {
+            "mutation_id": state.get('mutation_id'),
+            "test_name": state.get('test_name'),
+            "method_coverage": state.get('method_coverage'),
+            "report_path": str(report_path),
+        }
+        Path(mutation_coverage_path).parent.mkdir(parents=True, exist_ok=True)
+        with open(mutation_coverage_path, 'a', encoding='utf-8') as coverage_file:
+            coverage_file.write(json.dumps(coverage_entry) + "\n")
     print(f"\n✓ Report saved to: {report_path}")
     print("✓ Graph execution complete - returning to main()")
 
@@ -1022,17 +1097,17 @@ def main():
 
     # Parse command line arguments
     if len(sys.argv) < 4:
-        print("\nUsage: python3 main_apache_math3.py <callgraph_csv> <tests_root> <test_name>")
+        print("\nUsage: python3 main_apache_math3.py <callgraph_json> <tests_root> <test_name>")
         print("\nExample:")
-        print("  python3 main_apache_math3.py 'data/raw/callgraph2.csv' 'data/raw/test2' 'org.apache.commons.math3.util.MathArraysTest::testLinearCombinationWithSingleElementArray'")
+        print("  python3 main_apache_math3.py 'data/raw/callgraph.json' 'data/raw/test2' 'org.apache.commons.math3.util.MathArraysTest::testLinearCombinationWithSingleElementArray'")
         print("\nArguments:")
-        print("  callgraph_csv : Path to the callgraph CSV file")
+        print("  callgraph_json: Path to the callgraph JSON file")
         print("  tests_root    : Path to the test directory")
         print("  test_name     : Fully qualified test name (use :: or . as separator)")
         print("\n")
         sys.exit(1)
     
-    callgraph_csv = sys.argv[1]
+    callgraph_json = sys.argv[1]
     tests_root = sys.argv[2]
     test_name = sys.argv[3]
     
@@ -1040,77 +1115,98 @@ def main():
     test_name = test_name.replace('::', '.')
     
     # Derive output directory from callgraph path
-    # e.g., callgraph2.csv -> reconstructions2
+    # e.g., callgraph2.json -> reconstructions2
     import re
-    match = re.search(r'callgraph(\d*)', callgraph_csv)
+    match = re.search(r'callgraph(\d*)', callgraph_json)
     suffix = match.group(1) if match else ''
     output_dir = f"data/outputs/reconstructions{suffix}"
     
     print(f"\nConfiguration:")
-    print(f"  Callgraph: {callgraph_csv}")
+    print(f"  Callgraph: {callgraph_json}")
     print(f"  Tests root: {tests_root}")
     print(f"  Test name: {test_name}")
     print(f"  Output dir: {output_dir}")
     print("="*60)
 
-    # Configuration
-    initial_state: AnalysisState = {
-        "callgraph_csv": callgraph_csv,
-        "tests_root": tests_root,
-        "output_dir": output_dir,
-        "max_iterations": 25,
-        "test_name": test_name,  # Store test name in state
+    mutation_ids_path = str(Path("mutation_ids.txt"))
+    mutation_coverage_path = str(Path("data/outputs/mutated_method_coverage.jsonl"))
 
-        # Will be populated
-        "callgraph": {},
-        "tests": [],
-        "iteration": 0,
-        "current_understanding": "",
-        "llm_response": "",
-        "lines_to_execute": [],
-        "method_coverage": {},
-        "needs_line_coverage": False,
-        "tool_requests": [],
-        "tool_history": [],
-        "consecutive_duplicates": 0,
-        "messages": [],
-        "done": False,
-        "error": ""
-    }
+    # Prepare mutation ids list
+    mutation_ids: List[Optional[str]] = []
+    callgraph_metadata = load_callgraph(callgraph_json)
+    if callgraph_metadata.get("mutation_ids"):
+        Path(mutation_ids_path).write_text("\n".join(callgraph_metadata["mutation_ids"]) + "\n", encoding='utf-8')
+
+    if Path(mutation_ids_path).exists():
+        mutation_ids = [line.strip() for line in Path(mutation_ids_path).read_text(encoding='utf-8').splitlines() if line.strip()]
+
+    if not mutation_ids:
+        mutation_ids = [None]
 
     # Build and run graph
     try:
         graph = build_graph()
 
-        print("\n🚀 Starting graph execution...")
+        for mutation_id in mutation_ids:
+            print("\n🚀 Starting graph execution...")
+            if mutation_id:
+                print(f"Mutation ID: {mutation_id}")
 
-        if LANGSMITH_ENABLED and langsmith_client:
-            from langsmith.run_helpers import traceable
+            # Configuration
+            initial_state: AnalysisState = {
+                "callgraph_json": callgraph_json,
+                "tests_root": tests_root,
+                "output_dir": output_dir,
+                "max_iterations": 25,
+                "test_name": test_name,
+                "mutation_id": mutation_id,
+                "mutation_ids_path": mutation_ids_path,
+                "mutation_coverage_path": mutation_coverage_path,
 
-            @traceable(name="Apache-Math3-Analysis-Run", run_type="chain")
-            def traced_invoke(state):
-                return graph.invoke(state)
+                # Will be populated
+                "callgraph": {},
+                "tests": [],
+                "iteration": 0,
+                "current_understanding": "",
+                "llm_response": "",
+                "lines_to_execute": [],
+                "method_coverage": {},
+                "needs_line_coverage": False,
+                "tool_requests": [],
+                "tool_history": [],
+                "consecutive_duplicates": 0,
+                "messages": [],
+                "done": False,
+                "error": ""
+            }
 
-            print("📊 LangSmith: Creating trace...")
-            final_state = traced_invoke(initial_state)
-        else:
-            final_state = graph.invoke(initial_state)
+            if LANGSMITH_ENABLED and langsmith_client:
+                from langsmith.run_helpers import traceable
 
-        print("✓ Graph.invoke() returned successfully")
+                @traceable(name="Apache-Math3-Analysis-Run", run_type="chain")
+                def traced_invoke(state):
+                    return graph.invoke(state)
 
-        # Print results
-        if final_state.get("error"):
-            print(f"\n✗ Analysis failed: {final_state['error']}")
-        else:
-            print("\n" + "="*60)
-            print("SUCCESS!")
-            print("="*60)
-            if final_state.get("lines_to_execute"):
-                print("\nIdentified execution path:")
-                for line in final_state["lines_to_execute"][:10]:
-                    print(f"  - {line}")
-            if final_state.get('report_path'):
-                print(f"\nFull report: {final_state.get('report_path')}")
+                print("📊 LangSmith: Creating trace...")
+                final_state = traced_invoke(initial_state)
+            else:
+                final_state = graph.invoke(initial_state)
+
+            print("✓ Graph.invoke() returned successfully")
+
+            # Print results
+            if final_state.get("error"):
+                print(f"\n✗ Analysis failed: {final_state['error']}")
+            else:
+                print("\n" + "="*60)
+                print("SUCCESS!")
+                print("="*60)
+                if final_state.get("lines_to_execute"):
+                    print("\nIdentified execution path:")
+                    for line in final_state["lines_to_execute"][:10]:
+                        print(f"  - {line}")
+                if final_state.get('report_path'):
+                    print(f"\nFull report: {final_state.get('report_path')}")
 
         print("\n✓ Main() completing - exiting normally")
 

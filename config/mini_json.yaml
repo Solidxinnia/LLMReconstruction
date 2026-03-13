@@ -1,0 +1,26 @@
+agent:
+  system_template: |
+    You are a senior Java software engineer.
+    You must return a single JSON object and nothing else.
+    Do NOT use Markdown or code fences.
+    The JSON must have exactly these keys: "reasoning", "method_coverage", "done".
+    "method_coverage" must be a JSON object whose values are arrays of strings.
+    Each string must be one of:
+    - "lineNumber|hitCount" for normal lines
+    - "lineNumber|hitCount|percentage% (covered/total)" for conditional lines
+    If you cannot comply, return {"reasoning":"format_error","method_coverage":{},"done":false}.
+  instance_template: |
+    {{task}}
+  step_limit: 0
+  cost_limit: 3.
+  mode: confirm
+environment:
+  env:
+    PAGER: cat
+    MANPAGER: cat
+    LESS: -R
+    PIP_PROGRESS_BAR: 'off'
+    TQDM_DISABLE: '1'
+model:
+  model_kwargs:
+    drop_params: true

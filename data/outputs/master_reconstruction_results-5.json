@@ -1,0 +1,242 @@
+[
+    {
+        "id": "Math-5_10_17_228",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1|100% (1/1)",
+                "2|1|50% (1/2)",
+                "5|1|100% (1/1)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_10_229_233",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1",
+                "2|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_15_232_236",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1",
+                "5|1|100% (1/1)"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_15_26_232_236",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero": [
+                "5|1|100% (1/1)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_16_25_232",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero()": [
+                "1|1"
+            ],
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    [
+        {
+            "id": "Math-5_17_20_226_224",
+            "method_coverage": {
+                "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                    "1|1",
+                    "2|1|50% (1/2)",
+                    "5|1|25% (1/4)",
+                    "6|1"
+                ]
+            }
+        }
+    ],
+    {
+        "id": "Math-5_17_226_224",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero()": [
+                "1|1",
+                "2|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_17_26_228_225",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(params)": [
+                "0|1"
+            ],
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_18_21_227",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(params)": [
+                "0|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_1_11_24_230",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(params)": [
+                "1|1",
+                "2|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_224_ComplexTest_testReciprocalZero",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(params)": [
+                "1|1"
+            ],
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1",
+                "2|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    [
+        {
+            "id": "Math-5_22_288",
+            "method_coverage": {
+                "org.apache.commons.math3.complex.Complex:reciprocal": [
+                    "1|1|50% (1/2)",
+                    "5|1|25% (1/4)",
+                    "6|1"
+                ]
+            }
+        }
+    ],
+    [
+        {
+            "id": "Math-5_230_1",
+            "method_coverage": {
+                "org.apache.commons.math3.complex.Complex.reciprocal()": [
+                    "1|1",
+                    "2|1|50% (1/2)",
+                    "5|1|25% (1/4)",
+                    "6|1"
+                ]
+            }
+        }
+    ],
+    {
+        "id": "Math-5_23_288_ComplexTest_testReciprocalZero",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(params)": [
+                "0|1|100% (1/1)"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_2_9_25_222",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(args)": [
+                "0|1",
+                "1|1|100% (1/1)",
+                "2|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_3_15_26_232",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero": [
+                "1|1",
+                "2|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_5_16_22_223",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "5|1|100% (1/1]",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_6_221_ComplexTest_testReciprocalZero",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(params)": [
+                "0|1",
+                "1|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    [
+        {
+            "id": "Math-5_8_11_235",
+            "method_coverage": {
+                "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                    "1|1|100% (1/1)",
+                    "5|1|100% (1/1)",
+                    "6|1"
+                ]
+            }
+        }
+    ],
+    {
+        "id": "Math-5_8_18_21_227",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.ComplexTest:testReciprocalZero(params)": [
+                "1|1|50% (1/2)",
+                "2|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_8_236",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1|50% (1/2)",
+                "5|1|25% (1/4)",
+                "6|1"
+            ]
+        }
+    },
+    {
+        "id": "Math-5_9_228",
+        "method_coverage": {
+            "org.apache.commons.math3.complex.Complex:reciprocal()": [
+                "1|1|100% (1/1)",
+                "5|1|100% (1/1)",
+                "6|1"
+            ]
+        }
+    }
+]
